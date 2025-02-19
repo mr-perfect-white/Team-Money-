@@ -51,4 +51,8 @@ public function showLoginForm(){
     return view('member.auth.login');
 }
 
+public function showRegisterForm(){
+    return view('member.auth.register');
+
+}
 }

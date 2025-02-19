@@ -85,7 +85,7 @@
 
 
                         <div class="d-flex">
-                            <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-start"><a href="teamregistration.html" class="color-theme">Registration</a></div>
+                            <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-start"><a href="{{route('register')}}" class="color-theme">Registration</a></div>
                             <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-end"><a href="#" class="color-theme">Forgot Password</a></div>
                         </div>
                

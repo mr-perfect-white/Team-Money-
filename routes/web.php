@@ -35,6 +35,7 @@ Route::middleware('auth:user')->group(function () {
 });
 
 Route::get('/', [MemberLoginController::class, 'showLoginForm'])->name('members.login');
+Route::get('/register', [MemberLoginController::class, 'showRegisterForm'])->name('register');
 Route::post('/', [MemberLoginController::class, 'login'])->name('member.login');
 Route::post('member-logout', [MemberLoginController::class, 'logout'])->name('member.logout');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
