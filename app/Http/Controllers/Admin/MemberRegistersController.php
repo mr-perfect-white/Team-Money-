@@ -38,7 +38,7 @@ class MemberRegistersController extends Controller
      */
     public function store(Request $request)
 {
-    dd($request);
+    // dd($request);
   
    
 
@@ -108,8 +108,15 @@ class MemberRegistersController extends Controller
         'uuid' => (string) Str::uuid(),
     ]);
 
+    if (auth()->guard('user')->check()){
+
+        return redirect()->route('registers.index')->with('success', 'Member registered successfully!');
+    }
+    else{
+        return redirect()->route('members.login')->with('success', 'Member registered successfully!');
+    }
     // Redirect or return a response
-    return redirect()->route('registers.index')->with('success', 'Member registered successfully!');
+   
 }
 
    
