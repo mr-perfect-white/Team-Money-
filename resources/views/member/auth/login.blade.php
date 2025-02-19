@@ -79,7 +79,9 @@
                             <em>(required)</em>
                         </div>
 
-                        <button  class="btn btn-m mt-4 mb-4 btn-full bg-blue-dark rounded-sm text-uppercase font-900" type="submit">Login</button>
+                       <div style="display: flex; justify-content: center;">
+                            <button  class="btn btn-m mt-2 mb-4 btn-full bg-blue-dark rounded-sm text-uppercase font-900" style="width:140px;" type="submit">Login</button>
+                       </div>
 
                         </form>
 
