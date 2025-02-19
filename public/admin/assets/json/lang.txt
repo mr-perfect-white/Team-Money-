@@ -1,0 +1,36 @@
+
+
+
+
+
+    'title' => 'Login',
+    'indexhead' => 'Namaste',
+   'indexbutton1' => 'New Registration',
+    'indexbutton2' => 'check status',
+    'indexsec1head' => 'RSS News',
+    'indexsec1view' => 'View All',
+    'indexsec2head' => 'Resources',
+    'indexsec2view' => 'View All',
+    'indexsec3head' => 'Insight',
+    'indexsec3descp' => 'Our products suit your website, running incredibly fast and provide an unmatched UX and UI.',
+    'indexsec4head' => 'Vasathi Sanghik',
+    'indexsec4descp'  => 'Swayam sevaks will gather or join to the Sanghik in their respective vasathis as per there residential geographys.',
+    'indexsec4faq'  => 'FAQ',
+
+
+
+
+ 'title' => 'ಲಾಗಿನ್',
+    'indexhead' => 'ನಮಸ್ತೆ',
+    'indexbutton1' => '',
+    'indexbutton2' => '',
+    'indexsec1head' => '',
+    'indexsec1view' => '',
+    'indexsec2head' => '',
+    'indexsec2view' => '',
+    'indexsec3head' => '',
+    'indexsec3descp' => '',
+    'indexsec4head' => '',
+    'indexsec4descp'  => '',
+    'indexsec4faq'  => '',
+    
