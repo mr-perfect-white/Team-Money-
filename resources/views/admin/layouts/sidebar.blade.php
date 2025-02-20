@@ -58,7 +58,7 @@ $url_components = explode('/', Request::url())
                           </g>
                         </g>
                       </svg>
-                      <span class="">Group Management</span></a>
+                      <span class="">Group Management </span></a>
                     <ul class="sidebar-submenu">
                     <li><a href="{{route('groups.index')}}"> Group List</a></li>
                       <li><a href="{{route('groups.create')}}">create groups</a></li>
@@ -81,9 +81,9 @@ $url_components = explode('/', Request::url())
                     <ul class="sidebar-submenu">
                       <li><a href="{{route('teammeeting.index')}}"> Team Meetings </a></li>
                       <li><a href="{{route('teammeeting.create')}}">Create new</a></li>
-                     
                     </ul>
                   </li>
+                 
                
                     
                 </ul>

@@ -21,4 +21,8 @@ class Groupmember extends Model
     {
         return $this->belongsTo(MemberRegister::class);
     }
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(MemberRole::class);
+    }
 }

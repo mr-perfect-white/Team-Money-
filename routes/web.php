@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\GroupMeetingController;
 use App\Http\Controllers\Admin\TeamMeetingController;
 use App\Http\Controllers\Admin\GroupmemberController;
 use App\Http\Controllers\Admin\GroupController;
+use App\Http\Controllers\Admin\TeamAddendanceController;
 use App\Http\Controllers\Member\Auth\MemberLoginController;
 use App\Http\Controllers\Auth\LoginController;
 
@@ -32,6 +33,8 @@ Route::middleware('auth:user')->group(function () {
     Route::resource('/groupmembers', GroupmemberController::class);
     Route::resource('/groups', GroupController::class);
     Route::resource('/teammeeting', TeamMeetingController::class);
+    Route::get('/attendance/{meeting_id}', [TeamAddendanceController::class,'index'])->name('admin.meetings.attendance');
+  
 });
 
 Route::get('/', [MemberLoginController::class, 'showLoginForm'])->name('members.login');

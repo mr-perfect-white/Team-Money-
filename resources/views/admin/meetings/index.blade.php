@@ -61,6 +61,7 @@
                                <a href="{{route('teammeeting.show',$meeting->id)}}"> <button class="btn badge bg-primary fw-bold ">View</button></a>
                                 <a href="{{route('teammeeting.edit',$meeting->id)}}"><button class="btn badge btn-warning fw-bold">Edit</button></a>
                                 <a href="{{route('teammeeting.destroy',$meeting->id)}}"><button class="btn badge btn-danger fw-bold">Delete</button></a>
+                                <a href="{{route('admin.meetings.attendance',['meeting_id' => $meeting->id])}}"><button class="btn badge btn-info fw-bold">Attendance</button></a>
                             </td>
                            
                           </tr>

@@ -189,7 +189,7 @@
 
                                 <hr>
 
-                                <div class="text-center mt-2">
+                                <div class="text-center mt-5">
                                     <h4>Bank Details</h4>
                                 </div>
 
@@ -234,9 +234,9 @@
                                     <small class="error-message" id="incomeError"></small>
                                 </div>
 
-                                <div class="form-group text-center mt-2">
+                                <div class="form-group  mt-2">
                                     <h5 class="mb-2">Are you a Sadhguru Member?</h5>
-                                    <div class="d-flex justify-content-center">
+                                    <div class="d-flex">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="sadh_mem" id="memberYes" value="yes">
                                             <label class="form-check-label" for="memberYes"><i class="fa fa-user-check"></i> Member</label>
@@ -306,7 +306,7 @@
                             <div class="d-flex">
                                 <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-start"><a href="{{route('member.login')}}" class="color-theme">Already Registered?</a></div>
                                 <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-end">
-                                    <a href="teammoneylogin.html" class="color-theme">
+                                    <a href="{{route('member.login')}}" class="color-theme">
                                         <button class="bg-primary text-white p-2" style="border-radius: 10px;">Go to Login</button>
                                     </a>
                                 </div>

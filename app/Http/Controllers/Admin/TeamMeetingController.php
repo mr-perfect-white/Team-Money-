@@ -17,6 +17,8 @@ class TeamMeetingController extends Controller
         return view('admin.meetings.index',compact('data'));
     }
 
+ 
+
     /**
      * Show the form for creating a new resource.
      */
@@ -50,7 +52,7 @@ class TeamMeetingController extends Controller
      */
     public function show(TeamMeeting $teamMeeting)
     {
-        dd($teamMeeting->id);
+        //dd($teamMeeting->id);
       //  $meeting =  TeamMeeting::where('id',$teamMeeting)->first();
         return view('admin.meetings.view',compact('teamMeeting'));
     }
@@ -60,9 +62,11 @@ class TeamMeetingController extends Controller
      */
     public function edit(TeamMeeting $teamMeeting)
     {
-      //  dd($teamMeeting);
+      
         return view('admin.meetings.edit', compact('teamMeeting'));
     }
+
+    
 
     /**
      * Update the specified resource in storage.
@@ -92,4 +96,8 @@ class TeamMeetingController extends Controller
             return redirect()->route('teammeeting.index')->with('error', 'Meeting not found.');
         }
     }
+    
+   
+
+
 }
