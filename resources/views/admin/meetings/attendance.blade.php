@@ -4,6 +4,17 @@
 @section('style')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
 
+<style>
+    .select2-results__option ul {
+    border: 1px solid #f4eded;
+    margin: 10px 0px 10px 10px;
+}
+li.select2-results__option {
+    margin-bottom: 5px;
+}
+
+</style>
+
 @endsection
 
 @section('content')
@@ -30,52 +41,42 @@
   <!-- Group form start-->
   <div class="card">
             <div class="card-body">
-                <form id="groupForm"  action="" method="POST" >
+                <form id="groupForm"  action="{{route('attendance.store')}}" method="POST" >
                     @csrf
                     <div class="row">
                   
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-12 mb-3">
                             <label class="form-label" for="mname">Meeting Name</label>
                             <input type="text" class="form-control" id="meeting_name" value="{{ $meeting->tm_mtng_nm }}" readonly>
                             <div class="invalid-feedback">Please enter a  name.</div>
                         </div>
-                        
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label" for="groupLogo">Purposes</label>
-                            <input class="form-control" id="groupLogo" name="tm_mtng_purpose" type="text" placeholder="Enter purposes" required>
-                            <div class="invalid-feedback">Please write purposes.</div>
-                        </div>
+                     
+                       
+                        <div class="col-md-12">
+                  <div class="card">
+                      <div>
+                        <label class="col-form-label">Choose the Attendance</label>
+                      
+                        <select class="js-example-basic-hide-search col-sm-12" name="member" multiple="multiple">
+                            <optgroup label="Members">
+                                @foreach($members as $member)
+                                    @foreach($member->groupMembers as $group)
+                                   
+                                        <option value="{{ $member->id }}">
+                                            {{ $member->firstname }} - Group: {{ $group->group->name ?? 'No Group' }} - Role: {{ $group->role }}
+                                        </option>
+                                    @endforeach
+                                @endforeach
+                            </optgroup>
+                        </select>
+                      </div>
+                  </div>
+                </div>
+
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label" for="details">Details</label>
-                            <textarea class="form-control" id="details" name="tm_mtng_details" type="text" placeholder="Enter details" rows="3" ></textarea>
-                            <div class="invalid-feedback">Please enter details.</div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label" for="date">Date</label>
-                            <input class="form-control" id="date" name="tm_mtng_date" type="date" placeholder="Select date"  required>
-                            <div class="invalid-feedback">Please select date.</div>
-                        </div>
-                    </div>
-                   
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label" for="time">Time</label>
-                            <input class="form-control" id="time" name="tm_mtng_time" type="time" placeholder="Enter Time" required>
-                            <div class="invalid-feedback">Please enter Timing.</div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label" for="mode">Mode</label>
-                            <select class="form-select" name="tm_mtng_mode" id="mode" required>
-                                <option selected disabled value="">Choose...</option>
-                                <option value="Online">Online</option>
-                                <option value="Offline">Offline</option>
-                                
-                            </select>
-                            <div class="invalid-feedback">Please select one option.</div>
-                        </div>
-                    </div>
+
+                 
+                    
                     <button class="btn btn-primary" type="submit">Submit</button>
                 </form>
             </div>

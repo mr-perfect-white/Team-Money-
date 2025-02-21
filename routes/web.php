@@ -34,6 +34,7 @@ Route::middleware('auth:user')->group(function () {
     Route::resource('/groups', GroupController::class);
     Route::resource('/teammeeting', TeamMeetingController::class);
     Route::get('/attendance/{meeting_id}', [TeamAddendanceController::class,'index'])->name('admin.meetings.attendance');
+    Route::post('/attendance/store', [TeamAddendanceController::class,'store'])->name('attendance.store');
   
 });
 

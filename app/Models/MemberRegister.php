@@ -30,6 +30,7 @@ class MemberRegister extends Authenticatable
         'sadh_mem_id',
         'password',
     ];
+  
 
     public function getFullNameAttribute()
 {
@@ -44,5 +45,12 @@ class MemberRegister extends Authenticatable
     public function registermembers(): HasMany
     {
         return $this->hasMany(Groupmember::class);
+    }
+
+    protected $table = 'member_registers';
+    
+    public function groupMembers()
+    {
+        return $this->hasMany(GroupMember::class, 'member_id');
     }
 }
