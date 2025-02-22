@@ -31,6 +31,8 @@ class TeamAddendanceController extends Controller
     ->get();
 
     return view('admin.meetings.attendance', compact('meeting','members'));
+
+    
 }
 public function store(Request $request)
 {

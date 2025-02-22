@@ -16,7 +16,7 @@ class GroupmemberController extends Controller
      */
     public function index()
     {
-        //
+       
     }
 
     /**

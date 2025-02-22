@@ -3,7 +3,11 @@ $url_components = explode('/', Request::url())
 @endphp
 <div class="sidebar-wrapper"> 
           <div>
-            <div class="logo-wrapper"><a href="index-2.html"><img class="img-fluid for-light" src="{{asset('admin/assets/images/logo/small-logo.png')}}" alt=""><img class="img-fluid for-dark" src="../assets/images/logo/small-white-logo.png" alt=""></a>
+            <div class="logo-wrapper">
+              <a href="index-2.html">
+                <img class="img-fluid for-light" src="{{asset('admin/assets/images/logo/small-logo1.png')}}" alt="Team Money Logo">
+                <img class="img-fluid for-dark" src="{{asset('admin/assets/images/logo/small-logo1.png')}}" alt="Team Money Logo">
+              </a>
               <div class="back-btn"><i class="fa fa-angle-left"></i></div>
             </div>
             <div class="logo-icon-wrapper"><a href="index-2.html"><img class="img-fluid" src="{{asset('admin/assets/images/logo-icon.png')}}" alt=""></a></div>
@@ -83,13 +87,32 @@ $url_components = explode('/', Request::url())
                       <li><a href="{{route('teammeeting.create')}}">Create new</a></li>
                     </ul>
                   </li>
+
+                  <li class="sidebar-list">
+                    <label class="badge badge-light-info">New</label><a class="sidebar-link sidebar-title" href="#">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                          <g>
+                            <path d="M14.3053 15.45H8.90527" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M12.2604 11.4387H8.90442" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.1598 8.3L14.4898 2.9C13.7598 2.8 12.9398 2.75 12.0398 2.75C5.74978 2.75 3.64978 5.07 3.64978 12C3.64978 18.94 5.74978 21.25 12.0398 21.25C18.3398 21.25 20.4398 18.94 20.4398 12C20.4398 10.58 20.3498 9.35 20.1598 8.3Z" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M13.9342 2.83276V5.49376C13.9342 7.35176 15.4402 8.85676 17.2982 8.85676H20.2492" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                          </g>
+                        </g>
+                      </svg><span>Role Management</span></a>
+                    <ul class="sidebar-submenu">
+                      <!-- <li><a href=""> Team Meetings </a></li> -->
+                      <li><a href="">Create new</a></li>
+                    </ul>
+                  </li>
                  
                
                     
                 </ul>
                 <div class="sidebar-img-section">
                   <div class="sidebar-img-content"><img class="img-fluid" src="../assets/images/side-bar.png" alt="">
-                    <h4>Need Help ?</h4><a class="txt" href="https://pixelstrap.freshdesk.com/support/home">Raise ticket at "support@pixelstrap.com"</a><a class="btn btn-secondary" href="https://themeforest.net/user/pixelstrap/portfolio">Buy Now</a>
+                    <h4>Need Help ?</h4><a class="txt" href="#">Raise ticket at "support@teammoney.com"</a>
+                    <!-- <a class="btn btn-secondary" href="https://themeforest.net/user/pixelstrap/portfolio">Buy Now</a> -->
                   </div>
                 </div>
               </div>

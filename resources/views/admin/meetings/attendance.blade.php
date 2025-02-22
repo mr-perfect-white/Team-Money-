@@ -41,37 +41,46 @@ li.select2-results__option {
   <!-- Group form start-->
   <div class="card">
             <div class="card-body">
-                <form id="groupForm"  action="{{route('attendance.store')}}" method="POST" >
+                <form id="groupForm"  action="{{route('attendance.store')}}" method="POST">
                     @csrf
                     <div class="row">
                   
                         <div class="col-md-12 mb-3">
                             <label class="form-label" for="mname">Meeting Name</label>
-                            <input type="text" class="form-control" id="meeting_name" value="{{ $meeting->tm_mtng_nm }}" readonly>
+                            <input type="text" class="form-control" id="meeting_name" name="" value="{{ $meeting->tm_mtng_nm }}" readonly>
+                            <input type="hidden" class="form-control" id="meeting_name" name="meeting_id" value="{{ $meeting->id }}" readonly>
+
                             <div class="invalid-feedback">Please enter a  name.</div>
                         </div>
+
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label" for="mname">Group id</label>
+                            <input type="text" class="form-control" id="meeting_name" value="aditya">
+                            <div class="invalid-feedback">Please enter a  name.</div>
+                        </div>
+
                      
                        
                         <div class="col-md-12">
-                  <div class="card">
-                      <div>
-                        <label class="col-form-label">Choose the Attendance</label>
-                      
-                        <select class="js-example-basic-hide-search col-sm-12" name="member" multiple="multiple">
-                            <optgroup label="Members">
-                                @foreach($members as $member)
-                                    @foreach($member->groupMembers as $group)
-                                   
-                                        <option value="{{ $member->id }}">
-                                            {{ $member->firstname }} - Group: {{ $group->group->name ?? 'No Group' }} - Role: {{ $group->role }}
-                                        </option>
-                                    @endforeach
-                                @endforeach
-                            </optgroup>
-                        </select>
-                      </div>
-                  </div>
-                </div>
+                          <div class="card">
+                              <div>
+                                <label class="col-form-label">Choose the Attendance</label>
+                              
+                                <select class="js-example-basic-hide-search col-sm-12" name="member" multiple="multiple">
+                                    <optgroup label="Members">
+                                        @foreach($members as $member)
+                                            @foreach($member->groupMembers as $group)
+                                          
+                                                <option value="{{ $member->id }},{{ $member->firstname }},{{ $group->group_id}}">
+                                                    {{ $member->firstname }} - Group: {{ $group->group->name ?? 'No Group' }} - Role: {{ $group->role }}
+                                                </option>
+                                            @endforeach
+                                        @endforeach
+                                    </optgroup>
+                                </select>
+                              </div>
+                          </div>
+                        </div>
 
                     </div>
 

@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\MemberRegister;
+use App\Models\TeamMeeting;
+
+use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -17,8 +20,13 @@ class MemberRegistersController extends Controller
      */
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $totalmember = MemberRegister::count(); // Get total number of members
+        $group= Group::count();
+        $totalmeeting = TeamMeeting::count(); // Get total number of meetings
+        return view('admin.dashboard', compact('totalmember','group','totalmeeting'));
     }
+   
+
     public function index()
     {
         $data= MemberRegister::all();
