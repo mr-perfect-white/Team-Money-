@@ -99,10 +99,10 @@ $url_components = explode('/', Request::url())
                             <path d="M13.9342 2.83276V5.49376C13.9342 7.35176 15.4402 8.85676 17.2982 8.85676H20.2492" stroke="#130F26" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                           </g>
                         </g>
-                      </svg><span>Role Management</span></a>
+                      </svg><span>Role  Management</span></a>
                     <ul class="sidebar-submenu">
                       <!-- <li><a href=""> Team Meetings </a></li> -->
-                      <li><a href="">Create new</a></li>
+                      <li><a href="{{ route('memberrole') }}">Member Role</a></li>
                     </ul>
                   </li>
                  

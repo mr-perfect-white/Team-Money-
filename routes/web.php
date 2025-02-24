@@ -6,12 +6,11 @@ use App\Http\Controllers\Admin\GroupMeetingController;
 use App\Http\Controllers\Admin\TeamMeetingController;
 use App\Http\Controllers\Admin\GroupmemberController;
 use App\Http\Controllers\Admin\GroupController;
+use App\Http\Controllers\Admin\RoleManagementController;
 use App\Http\Controllers\Admin\TeamAddendanceController;
 use App\Http\Controllers\Member\Auth\MemberLoginController;
 use App\Http\Controllers\Auth\LoginController;
-
-
-
+use App\Http\Controllers\MemberRoleController;
 
 // Route::get('/', function () {
 //     return view('member.auth.login');
@@ -34,6 +33,22 @@ Route::middleware('auth:user')->group(function () {
     Route::resource('/groups', GroupController::class);
     Route::resource('/teammeeting', TeamMeetingController::class);
     Route::get('/attendance/{meeting_id}', [TeamAddendanceController::class,'index'])->name('admin.meetings.attendance');
+    Route::get('/rolemanagement', [RoleManagementController::class, 'index'])->name('rolemanagement');
+
+    //Route::resource('/memberrole', MemberRoleController::class);
+    Route::get('/memberrole', [MemberRoleController::class, 'index'])->name('memberrole');
+    Route::get('/memberrole/create', [MemberRoleController::class, 'create'])->name('role-create');
+    Route::get('memberrole/{id}/role-edit', [MemberRoleController::class, 'edit'])
+    ->name('memberrole.role-edit');
+    Route::put('memberrole/{id}/update', [MemberRoleController::class, 'update'])
+    ->name('memberrole.update');
+     Route::delete('/memberrole/delete/{$id}', [MemberRoleController::class, 'delete'])->name('memberrole.delete');
+    
+
+
+
+    Route::post('memberrole/store', [MemberRoleController::class, 'store'])->name('memberrole.store');
+
     Route::post('/attendance/store', [TeamAddendanceController::class,'store'])->name('attendance.store');
   
 });
