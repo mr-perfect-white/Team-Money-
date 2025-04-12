@@ -22,4 +22,11 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+     #auto redirect http to https
+     RewriteEngine On
+     RewriteCond %{SERVER_PORT} 80
+     RewriteRule ^(.*)$ https://theonehealth.in/teammoney.mc.com/[R,L]
+         
+
 </IfModule>
