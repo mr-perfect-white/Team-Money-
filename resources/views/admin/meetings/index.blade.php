@@ -33,7 +33,7 @@
                   <div class="card-body">
 
                     <div class="mb-3 text-end">
-                      <a href="{{route('teammeeting.create')}}" class="btn btn-square bg-primary " > Add
+                      <a href="{{route('teamMeeting.create')}}" class="btn btn-square bg-primary " > Add
                      New Meeting </a>
                   </div>
                     <div class="table-responsive">
@@ -56,13 +56,21 @@
                             <td>{{$meeting->tm_mtng_nm}}</td>
                             <td>{{$meeting->tm_mtng_date}}</td>
                             <td>{{$meeting->tm_mtng_time}}</td>
-                            <td>{{$meeting->tm_mtng_mode}}</td>
-                            <td>
-                               <a href="{{route('teammeeting.show',$meeting->id)}}"> <button class="btn badge bg-primary fw-bold ">View</button></a>
-                                <a href="{{route('teammeeting.edit',$meeting->id)}}"><button class="btn badge btn-warning fw-bold">Edit</button></a>
-                                <a href="{{route('teammeeting.destroy',$meeting->id)}}"><button class="btn badge btn-danger fw-bold">Delete</button></a>
-                                <a href="{{route('admin.meetings.attendance',['meeting_id' => $meeting->id])}}"><button class="btn badge btn-info fw-bold">Attendance</button></a>
+                            <td>@if($meeting->tm_mtng_mode == 1)
+                              Online
+                              @else
+                              Offline
+                              @endif
                             </td>
+                            <td>
+                               <a href="{{route('teamMeeting.show',$meeting->id)}}"> <button class="btn badge bg-primary fw-bold ">View</button></a>
+                                <a href="{{route('teamMeeting.edit',$meeting->id)}}"><button class="btn badge btn-warning fw-bold">Edit</button></a>
+                                <a href="{{route('teamattendance.index',['meeting' => $meeting->id])}}"><button class="btn badge btn-secondary fw-bold">Attendance</button></a>
+
+                                <button class="btn badge bg-danger fw-bold" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="{{ $meeting->id }}" data-name="{{ $meeting->tm_mtng_nm }}">
+                Delete
+            </button>
+                              </td>
                            
                           </tr>
                           @endforeach
@@ -77,14 +85,49 @@
             </div>
           </div>
 
-
-
-
+          <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Are you sure you want to delete?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to delete <strong id="meetingName"></strong>? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn badge bg-danger fw-bold">Delete</button>
+                </form>
+                <button type="button" class="btn badge bg-secondary fw-bold" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 
 
 @section("script")
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const meetingId = button.getAttribute('data-id');
+        const meetingName = button.getAttribute('data-name');
+
+        // Update modal text
+        deleteModal.querySelector('#meetingName').textContent = meetingName;
+
+        // Update form action
+        const form = deleteModal.querySelector('#deleteForm');
+        form.action = '/admin/teamMeeting/' + meetingId; // Adjust the route as needed
+    });
+});
+</script>
 @endsection
 
 

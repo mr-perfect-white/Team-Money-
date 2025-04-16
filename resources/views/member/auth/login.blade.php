@@ -42,6 +42,18 @@
 
         <div class="card card-style mt-5">
             <div class="content mt-2 mb-0">
+                 @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+<div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
             @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -59,7 +71,7 @@
                                 
                             </div>
                         </div>
-                        <form action="{{route('member.login') }}" method="POST">
+                        <form action="{{route('memberloginform') }}" method="POST">
                              @csrf
                         <div class="input-style no-borders has-icon validate-field mb-4">
                             <i class="fa fa-phone"></i>
@@ -79,16 +91,14 @@
                             <em>(required)</em>
                         </div>
 
-                       <div style="display: flex; justify-content: center;">
-                            <button  class="btn btn-m mt-2 mb-4 btn-full bg-blue-dark rounded-sm text-uppercase font-900" style="width:140px;" type="submit">Login</button>
-                       </div>
+                        <button  class="btn btn-m mt-4 mb-4 btn-full bg-blue-dark rounded-sm text-uppercase font-900" type="submit">Login</button>
 
                         </form>
 
 
                         <div class="d-flex">
-                            <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-start"><a href="{{route('register')}}" class="color-theme">Registration</a></div>
-                            <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-end"><a href="#" class="color-theme">Forgot Password</a></div>
+                            <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-start"><a href="{{route('register.create')}}" class="color-theme">Registration</a></div>
+                            <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-end"><a href="{{route('forgotpassword')}}" class="color-theme">Forgot Password</a></div>
                         </div>
                
             </div>

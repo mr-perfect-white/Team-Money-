@@ -30,7 +30,6 @@ class MemberRegister extends Authenticatable
         'sadh_mem_id',
         'password',
     ];
-  
 
     public function getFullNameAttribute()
 {
@@ -42,15 +41,19 @@ class MemberRegister extends Authenticatable
         return $this->status == 1 ? 'New' : 'Added';
     }
 
-    public function registermembers(): HasMany
+    public function registermembers()
     {
-        return $this->hasMany(Groupmember::class);
+        return $this->belongsTo(Groupmember::class,'groupmembers', 'group_id', 'member_id');
+      //  return $this->belongsTo(Groupmember::class);
     }
 
-    protected $table = 'member_registers';
-    
-    public function groupMembers()
-    {
-        return $this->hasMany(GroupMember::class, 'member_id');
-    }
+    // MemberRegister Model
+public function groupmembers()
+{
+    return $this->hasMany(Groupmember::class, 'member_id');
+}
+
+
+   
+
 }

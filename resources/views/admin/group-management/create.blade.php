@@ -25,7 +25,7 @@
 <!-- Group form start-->
 <div class="card">
     <div class="card-body">
-    <form id="groupForm" class="needs-validation" action="{{route('groups.store')}}" method="POST" enctype="multipart/form-data">
+    <form id="groupForm" class="needs-validation" action="{{route('group.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="row">
         <div class="col-md-6 mb-3">
@@ -44,7 +44,7 @@
             <label class="form-label" for="members">Members</label>
             <select class="form-select" id="members" name="members[]">
                 @foreach($members as $member)
-                    <option value="{{$member->id}}">{{$member->firstname}} {{$member->lastname}}</option>
+                    <option value="{{$member->id}}">{{$member->FullName}}</option>
                 @endforeach
             </select>
             <div class="invalid-feedback">Please select one option.</div>
@@ -71,7 +71,7 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Dynamically added members will appear here -->
+          
         </tbody>
     </table>
 
@@ -174,3 +174,8 @@
 
 </script>
 @endsection
+
+
+
+
+

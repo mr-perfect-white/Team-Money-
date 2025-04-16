@@ -19,37 +19,26 @@
 <body class="theme-light" data-highlight="blue2">
     
 <div id="preloader"><div class="spinner-border color-highlight" role="status"></div></div>
-    
+@if(auth()->guard('member')->user())
 <div id="page">
     
-    <!-- header and footer bar go here-->
-    <div class="header header-fixed header-auto-show header-logo-app">
-        <a href="index.html" class="header-title">Team Money</a>
-        <a href="#" data-menu="menu-main" class="header-icon header-icon-1"><i class="fas fa-bars"></i></a>
-        <a href="#" data-toggle-theme class="header-icon header-icon-2 show-on-theme-dark"><i class="fas fa-sun"></i></a>
-        <a href="#" data-toggle-theme class="header-icon header-icon-2 show-on-theme-light"><i class="fas fa-moon"></i></a>
-        <a href="#" data-menu="menu-highlights" class="header-icon header-icon-3"><i class="fas fa-brush"></i></a>
-    </div>
-   @include('member.layouts.memberfooter')
+        <div class="header header-fixed header-auto-show header-logo-app">
+            <a href="index.html" class="header-title">Team Money</a>
+            <a href="#" data-menu="menu-main" class="header-icon header-icon-1"><i class="fas fa-bars"></i></a>
+            <a href="#" data-toggle-theme class="header-icon header-icon-2 show-on-theme-dark"><i class="fas fa-sun"></i></a>
+            <a href="#" data-toggle-theme class="header-icon header-icon-2 show-on-theme-light"><i class="fas fa-moon"></i></a>
+            <a href="#" data-menu="menu-highlights" class="header-icon header-icon-3"><i class="fas fa-brush"></i></a>
+        </div>
+            @include('member.layouts.memberfooter')
     
-    <div class="page-content">
-        
-
-    
-         
-            <div class="page-title page-title-large">
-                    <h2 data-username="Enabled!" class="greeting-text"></h2>
-                    <a class="dropdown-item" href="{{ route('member.logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-memberform').submit();"><i data-feather="log-in"> </i>
-                                        {{ __('Logout') }}
-                                    </a>
- <form id="logout-memberform" action="{{ route('member.logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+            <div class="page-content">
+             
+                <div class="page-title page-title-large">
+                            <h2 data-username="Enabled!" class="greeting-text"></h2>
+                                
                     <a href="#" data-menu="menu-main" class="bg-fade-highlight-light shadow-xl preload-img" data-src="{{asset('member/images/avatars/5s.png')}}"></a>
                 </div>
-                <div class="card header-card shape-rounded" data-card-height="210">
+                <div class="card header-card shape-rounded" data-card-height="120">
                     <div class="card-overlay bg-highlight opacity-95"></div>
                     <div class="card-overlay dark-mode-tint"></div>
                     <div class="card-bg preload-img" data-src="images/pictures/20s.jpg"></div>
@@ -63,62 +52,137 @@
             
             @include('member.layouts.footer')
 
-          
-    
-    <div id="menu-tips-1" 
-         class="menu menu-box-bottom menu-box-detached rounded-m" 
-         data-menu-height="350" 
+            <div id="menu-meeting" class="menu menu-box-bottom menu-box-detached rounded-m" 
+                data-menu-height="155" 
+                data-menu-effect="menu-over">
+                        <div class="row me-3 ms-3 mt-3">
+                                <div class="col-4 pe-2">
+                                    <a href="{{route('groupmeeting.index')}}">
+                                    <span class="icon icon-l"><i class="fa fa-file rounded-m bg-yellow-dark d-block mb-3"></i></span>
+                                    <h5 class="mb-n1 font-12 line-height-s font-600 color-theme">Meeting<br>List</h5>
+                                    </a>
+                                </div>
+                                <div class="col-4 pe-2">
+                                    <a href="{{route('groupmeeting.create')}}">
+                                    <span class="icon icon-l"><i class="fa fa-file rounded-m bg-yellow-dark d-block mb-3"></i></span>
+                                    <h5 class="mb-n1 font-12 line-height-s font-600 color-theme">Create<br>Meeting</h5>
+                                    </a>
+                                </div>
+                                <div class="col-4 pe-2">
+                                    <a href="{{route('groupmeeting.create')}}">
+                                    <span class="icon icon-l"><i class="fa fa-person rounded-m bg-yellow-dark d-block mb-3"></i></span>
+                                    <h5 class="mb-n1 font-12 line-height-s font-600 color-theme">Attendance<br>Details</h5>
+                                    </a>
+                                </div>
+                                <div class="clear"></div>
+                        </div>
+            </div>       
+            <div id="menu-language" class="menu menu-box-bottom menu-box-detached rounded-m" 
+                data-menu-height="245" 
+                data-menu-effect="menu-over">
+                <div class="row me-3 ms-3 mt-3">
+                <div class="col-4 pe-2">
+                                <a href="">
+                                <span class="icon icon-l"><i class="fa fa-file rounded-m bg-yellow-dark d-block mb-3"></i></span>
+                                <h5 class="mb-n1 font-12 line-height-s font-600 color-theme">Group<br>Dashboard</h5>
+                                </a>
+                                </div>
+                                <div class="col-4 pe-2">
+                                <a href="">
+                                <span class="icon icon-l"><i class="fa fa-file rounded-m bg-yellow-dark d-block mb-3"></i></span>
+                                <h5 class="mb-n1 font-12 line-height-s font-600 color-theme">Group<br>Protocols</h5>
+                                </a>
+                                </div>
+                                <div class="col-4 pe-2">
+                                <a href="{{route('membergroup.index')}}">
+                                <span class="icon icon-l"><i class="fa fa-person rounded-m bg-yellow-dark d-block mb-3"></i></span>
+                                <h5 class="mb-n1 font-12 line-height-s font-600 color-theme">Group<br>Members</h5>
+                                </a>
+                                </div>
+                                <div class="col-4 pe-2">
+                                <a href="">
+                                <span class="icon icon-l"><i class="fa fa-users  rounded-m bg-yellow-dark d-block mb-3"></i></span>
+                                <h5 class="mb-n1 font-12 line-height-s font-600 color-theme">Group<br>Meetings</h5>
+                                </a>
+                                </div>
+                                <div class="col-4 pe-2">
+                                <a href="">
+                                <span class="icon icon-l"><i class="fa fa-users  rounded-m bg-yellow-dark d-block mb-3"></i></span>
+                                <h5 class="mb-n1 font-12 line-height-s font-600 color-theme">Group<br>Finance</h5>
+                                </a>
+                                </div>
+                                <div class="col-4 pe-2">
+                                <a href="">
+                                <span class="icon icon-l"><i class="fa fa-users  rounded-m bg-yellow-dark d-block mb-3"></i></span>
+                                <h5 class="mb-n1 font-12 line-height-s font-600 color-theme">Group<br>Activity</h5>
+                                </a>
+                                </div>
+                    <div class="clear"></div>
+                </div>
+            </div> 
+
+            <div id="menu-tips-1" 
+                class="menu menu-box-bottom menu-box-detached rounded-m" 
+                data-menu-height="350" 
+                data-menu-effect="menu-over"> 
+
+                    <div class="card-body row me-3 ms-3 mt-5">
+                         <div class="col-3 pe-2">
+                            <a href="{{route('groupmeeting.index')}}">
+                            <span class="icon icon-l"><i class="fa fa-file rounded-m bg-yellow-dark d-block mb-3"></i></span>
+                            <h5 class="mb-n1 font-12 line-height-s font-600 color-theme">Group<br>meetings</h5>
+                            </a>
+                        </div>
+                        <div class="col-3 pe-2">
+                            <a href="{{route('groupmeeting.create')}}">
+                            <span class="icon icon-l"><i class="fa fa-file rounded-m bg-yellow-dark d-block mb-3"></i></span>
+                            <h5 class="mb-n1 font-12 line-height-s font-600 color-theme">Schedule<br>New Meeting</h5>
+                            </a>
+                        </div>
+                        <div class="col-3 pe-2">
+                            <a href="{{route('groupmeeting.index')}}">
+                            <span class="icon icon-l"><i class="fa fa-users rounded-m bg-yellow-dark d-block mb-3"></i></span>
+                            <h5 class="mb-n1 font-12 line-height-s font-600 color-theme">Members <br>Attendance</h5>
+                            </a>
+                        </div>
+                        <div class="col-3 pe-2">
+                            <a href="">
+                            <span class="icon icon-l"><i class="fa fa-person  rounded-m bg-yellow-dark d-block mb-3"></i></span>
+                            <h5 class="mb-n1 font-12 line-height-s font-600 color-theme">My<br>Attendance</h5>
+                            </a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+            </div>   
+
+
+            <div id="menu-main"
+         class="menu menu-box-right menu-box-detached rounded-m"
+         data-menu-width="260"
+       
+         data-menu-active="nav-features"
          data-menu-effect="menu-over">
 
-        <div class="card header-card shape-rounded" data-card-height="100">
-            <div class="card-overlay bg-highlight opacity-95"></div>
-            <div class="card-overlay dark-mode-tint"></div>
-            <div class="card-bg preload-img" data-src="images/pictures/20s.jpg"></div>
+        <div class="text-start mt-5">
+        <a href="#" class="bg-fade-highlight-light shadow-xl preload-img" data-src="{{asset('member/images/avatars/5s.png')}}"></a>
+
+
+        <a class="text-dark fs-5 text-start m-3" style="text-decoration:none;" href="{{ route('memberlogout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-memberform').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-memberform" action="{{ route('memberlogout') }}" method="POST" class="d-none">
+                                        @csrf
+                                  
+                                    </form>
         </div>
-
-        <div class="mt-3 pt-1 pb-1" style="position:relative; z-index:22;">
-            <h1 class="text-center">
-                <i data-feather="smartphone" 
-                   data-feather-line="1" 
-                   data-feather-size="60" 
-                   data-feather-color="gray-dark" 
-                   data-feather-bg="none"></i>
-            </h1>
-            <h1 class="text-center color-white font-22 font-700">PWA Ready</h1>
-            <p class="text-center mt-n3 mb-3 font-11 color-white">Just add it to your home screen and Enjoy!</p>
-        </div>
-        <div class="card card-style">
-            <p class="boxed-text-xl pt-3 mb-3">
-                Azures is a Mobile Webite, but it is also a PWA! You can add it to your home screen and navigate it 
-                like you would navigate an application.
-            </p>
-        </div>       
-        <div class="row mb-0">
-            <div class="col-6">
-                <a href="#" class="btn btn-border btn-sm ms-3 rounded-s btn-full shadow-l color-highlight border-highlight close-menu text-uppercase font-900">Close</a>
-            </div>
-            <div class="col-6">
-                <a data-menu="menu-tips-2" href="#" class="btn btn-sm me-3 rounded-s btn-full shadow-l bg-highlight font-900 text-uppercase">1/5 - Next</a>
-            </div>
-        </div>
-    </div>   
-
-
-
-    <div id="menu-language" class="menu menu-box-bottom menu-box-detached rounded-m" 
-         data-menu-height="445" 
-         data-menu-effect="menu-over">
-        <div class="me-3 ms-3 mt-3">
-           <h5 class="text-center text-highlight">select here</h5>
-
-           
-            <div class="clear"></div>
-        </div>
-    </div> 
+    </div>
+   
 
     
 </div>    
-
+@endif
 <script type="text/javascript" src="{{asset('member/scripts/bootstrap.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('member/scripts/custom.js')}}"></script>
 @yield('script')

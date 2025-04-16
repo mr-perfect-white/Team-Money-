@@ -260,12 +260,12 @@
                   <li><a href="kanban.html"><i data-feather="file-text"></i><span>Taskboard</span></a></li>
                   <li><a href="edit-profile.html"><i data-feather="settings"></i><span>Settings</span></a></li> -->
                   <li>
-                  <a class="dropdown-item" href="{{ route('logout') }}"
+                  <a class="dropdown-item" 
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i data-feather="log-in"> </i>
                                         {{ __('Logout') }}
                                     </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('adminlogout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form></li>
                 </ul>

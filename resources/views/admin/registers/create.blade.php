@@ -49,42 +49,42 @@
           <!-- Register form start-->
           <div class="card"> 
             <div class="card-body">
-              <form class="" method="POST" id="registerForm" action="{{route('registers.store')}}" >
+              <form class="" method="POST" id="registerForm" action="{{route('registers.store')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="row g-3">
                   <div class="col-md-6">
-                    <label class="form-label" for="validationDefault01">First name</label>
-                    <input class="form-control" name="firstname"  id="validationDefault01" type="text" placeholder="First name" required="">
+                    <label class="form-label" for="firstname">First name</label>
+                    <input class="form-control" name="firstname"  id="firstname" type="text" placeholder="First name" required="">
                     <small class="error-message" id="firstNameError">Please enter a valid name.</small>
                   </div>
                   <div class="col-md-6 mb-3">
-                    <label class="form-label" for="validationDefault02">Last name</label>
-                    <input class="form-control" name="lastname" id="validationDefault02" type="text" placeholder="Last name" required="">
+                    <label class="form-label" for="lastname">Last name</label>
+                    <input class="form-control" name="lastname" id="lastname" type="text" placeholder="Last name" required="">
                     <small class="error-message" id="lastNameError">Please enter a valid name.</small>
                   </div>  
                 </div>
 
                 <div class="row g-3">
                     <div class="col-md-6">
-                      <label class="form-label" for="validationDefault01">Phone Number</label>
-                      <input class="form-control" name="phone" id="validationDefault01" type="number" placeholder="Phone number" required="">
+                      <label class="form-label" for="phone">Phone Number</label>
+                      <input class="form-control" name="phone" id="phone" type="number" placeholder="Phone number" required="">
                       <small class="error-message" id="phoneError">Enter a valid 10-digit phone number.</small>
                     </div>
                     <div class="col-md-6 mb-3">
-                      <label class="form-label" for="validationDefault02">Email</label>
-                      <input class="form-control" name="email" id="validationDefault02" type="email" placeholder="Email" required="">
+                      <label class="form-label" for="email">Email</label>
+                      <input class="form-control" name="email" id="email" type="email" placeholder="Email" required="">
                       <small class="error-message" id="emailError">Enter a valid email address.</small>
                     </div>  
                 </div>
 
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <label class="form-label" for="validationTextarea">Permanent Address</label>
-                        <textarea class="form-control" name="permanent_addr" id="validationTextarea" placeholder="Enter Permanent Address" required=""></textarea>
+                        <label class="form-label" for="permanent_addr">Permanent Address</label>
+                        <textarea class="form-control" name="permanent_addr" id="permanent_addr" placeholder="Enter Permanent Address" required=""></textarea>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label class="form-label" for="validationTextarea">Temporary Address</label>
-                        <textarea class="form-control" name="temporary_addr" id="validationTextarea" placeholder="Enter Temporary Address" required=""></textarea>
+                        <label class="form-label" for="temporary_addr">Temporary Address</label>
+                        <textarea class="form-control" name="temporary_addr" id="temporary_addr" placeholder="Enter Temporary Address" required=""></textarea>
                     </div>  
                 </div>
 
@@ -95,12 +95,12 @@
                  
                <div class="row g-3">
                     <div class="col-md-6">
-                      <label class="form-label" for="validationDefault01">PAN Number</label>
+                      <label class="form-label" for="pan_num">PAN Number</label>
                       <input class="form-control" id="panNumber" name="pan_num" type="text" placeholder="Enter Correct PAN number" required="">
                       <small class="error-message" id="panError">PAN must be 10 characters.</small>
                     </div>
                     <div class="col-md-6 mb-3">
-                      <label class="form-label" for="validationDefault01">Upload PAN document</label>
+                      <label class="form-label" for="pan_doc">Upload PAN document</label>
                       <input class="form-control" id="panFile" name="pan_doc" type="file" placeholder="Upload PAN Card" required="">
                       <!-- <small class="error-message" id="panFileError">Please Upload a PAN Photo </small> -->
                       <small class="error-message text-danger" id="panFileError" style="display: none;"></small>
@@ -108,12 +108,12 @@
                 </div>
                 <div class="row g-3">
                   <div class="col-md-6">
-                    <label class="form-label" for="validationDefault01">Aadhar Number</label>
+                    <label class="form-label" for="adhr_num">Aadhar Number</label>
                     <input class="form-control" id="aadharNumber" name="adhr_num" type="text" placeholder="Enter Correct Aadhar number" required="">
                     <small class="error-message" id="aadharError">Aadhar must be 12 digits.</small>
                   </div>
                   <div class="col-md-6 mb-3">
-                    <label class="form-label" for="validationDefault01">Upload Aadhar card</label>
+                    <label class="form-label" for="adhr_doc">Upload Aadhar card</label>
                     <input class="form-control" id="aadharFile" name="adhr_doc" type="file" placeholder="Upload Aadhar Card" required="">
                     <small class="error-message text-danger" id="aadharFileError" style="display: none;"></small>
                   </div>
@@ -124,12 +124,12 @@
                 </div>
                 <div class="row g-3 mt-3">
                   <div class="col-md-6">
-                    <label class="form-label" for="validationDefault01">Account Number</label>
+                    <label class="form-label" for="accnt_num">Account Number</label>
                     <input class="form-control" id="account" type="number" name="accnt_num" placeholder="Account number" required="">
                     <small class="error-message" id="accountError">Please enter account number.</small>
                   </div>
                   <div class="col-md-6 mb-3">
-                    <label class="form-label" for="validationDefault02">IFSC Code</label>
+                    <label class="form-label" for="accnt_ifsc_num">IFSC Code</label>
                     <input class="form-control" id="ifsc" type="text" name="accnt_ifsc_num" placeholder="IFSC Code" required="">
                     <small class="error-message" id="ifscError">Please enter Valid IFSC code</small>
                   </div>  
@@ -137,50 +137,50 @@
 
                 <div class="row g-3">
                   <div class="col-md-6">
-                      <label class="form-label" for="validationTextarea">Branch Address</label>
-                      <textarea class="form-control" id="validationTextarea" name="accnt_brnch_dtl" placeholder="Enter Branch Address" required=""></textarea>
+                      <label class="form-label" for="accnt_brnch_dtl">Branch Address</label>
+                      <textarea class="form-control" id="accnt_brnch_dtl" name="accnt_brnch_dtl" placeholder="Enter Branch Address" required=""></textarea>
                   </div>
                   <div class="col-md-6 mb-3">
-                    <label class="form-label" for="validationDefault01">Monthly Income in Rupees</label>
-                    <input class="form-control" id="validationDefault01" name="monthly_inc" type="number" placeholder="Enter Your Monthly Income" required="">
+                    <label class="form-label" for="monthly_inc">Monthly Income in Rupees</label>
+                    <input class="form-control" id="monthly_inc" name="monthly_inc" type="number" placeholder="Enter Your Monthly Income" required="">
                   </div>
               </div>
 
               <div class="row g-3">
                 <div class="col-md-6">
                   <div class="mt-4 m-checkbox-inline custom-radio-ml">
-                    <div class="form-check form-check-inline radio radio-primary">
-                      <input class="form-check-input" id="radioinline1" type="radio" name="sadh_mem" value="1">
+                    <div class="form-check form-check-inline radio radio-primary" id="">
+                      <input class="form-check-input memberYes" id="radioinline1" type="radio" name="sadh_mem" value="1">
                       <label class="form-check-label mb-0" for="radioinline1">Sadhguru Member<span class="digits"> </span></label>
                     </div>
-                    <div class="form-check form-check-inline radio radio-primary">
-                      <input class="form-check-input" id="radioinline2" type="radio" name="sadh_mem" value="2">
+                    <div class="form-check form-check-inline radio radio-primary" id="">
+                      <input class="form-check-input memberNo" id="radioinline2" type="radio" name="sadh_mem" value="2">
                       <label class="form-check-label mb-0" for="radioinline2">Not a Sadhguru Member<span class="digits"> </span></label>
                     </div>
                     
                   </div>
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label class="form-label" for="validationDefault01">Sadhguru membership ID</label>
-                  <input class="form-control" id="validationDefault01" type="number" name="sadh_mem_id" placeholder="Enter Your Sadhguru ID" required="">
+                <div class="col-md-6 mb-3 memberIdField" id="" style="display:none;">
+                  <label class="form-label" for="sadh_mem_id">Sadhguru membership ID</label>
+                  <input class="form-control" id="sadh_mem_id" type="number" name="sadh_mem_id" placeholder="Enter Your Sadhguru ID">
                 </div>
             </div>
 
             <div class="row g-3">
               <div class="col-md-6 mb-3">
-                <label class="form-label" for="validationDefault01">Upload Photo</label>
+                <label class="form-label" for="document_one">Upload Photo</label>
                 <input class="form-control" id="photoFile" name="document_one" type="file" placeholder="Upload File" required="">
                 <small class="error-message text-danger" id="photoFileError" style="display: none;"></small>
               </div>
               <div class="col-md-6 mb-3">
-                <label class="form-label" for="validationDefault01">Enter Password</label>
+                <label class="form-label" for="password">Enter Password</label>
                 <input class="form-control" id="password" type="password" placeholder="Enter password" name="password" required="">
                 <small class="error-message" id="passwordError">Password must be strong.</small>
               </div>
             </div>
             <div class="row g-3">
               <div class="col-md-6 mb-3">
-                <label class="form-label" for="validationDefault01">Confirm Password</label>
+                <label class="form-label" for="password">Confirm Password</label>
                 <input class="form-control" id="confirmPassword" type="password" placeholder="Confirm Password" required="">
                 <small class="error-message" id="confirmPasswordError">Passwords do not match.</small>
               </div>
@@ -200,6 +200,29 @@
 
 @endsection
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- JavaScript -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Select all radio buttons
+    const memberYes = document.querySelectorAll(".memberYes");
+    const memberNo = document.querySelectorAll(".memberNo");
+    const memberIdField = document.querySelector(".memberIdField");
+
+    // Function to toggle visibility
+    function toggleVisibility(isVisible) {
+        memberIdField.style.display = isVisible ? "block" : "none";
+    }
+
+    // Add event listeners to radio buttons
+    memberYes.forEach((element) => {
+        element.addEventListener("change", () => toggleVisibility(true));
+    });
+
+    memberNo.forEach((element) => {
+        element.addEventListener("change", () => toggleVisibility(false));
+    });
+});
+</script>
 <script>
     $(document).ready(function () {
         $("#phoneNumber").on("input", function () {
@@ -318,7 +341,7 @@
     $("#registerForm").on("submit", function (event) {
         let isValid = true;
 
-        $("#registerForm input, #registerForm textarea").each(function () {
+        $("#registerForm input:visible, #registerForm textarea").each(function () {
             if ($(this).val().trim() === "") {
                 showError(this, `#${$(this).attr("id")}Error`, "This field is required.");
                 isValid = false;

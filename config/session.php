@@ -127,10 +127,17 @@ return [
     |
     */
 
+    // 'cookie' => env(
+    //     'SESSION_COOKIE',
+    //     Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
+    // ),
     'cookie' => env(
-        'SESSION_COOKIE',
-        Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
-    ),
+    'SESSION_COOKIE',
+    Str::slug(env('APP_NAME', 'laravel'), '_').'_session_'.(
+        isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/admin') === 0 ? 'admin' : 'member'
+    )
+),
+
 
     /*
     |--------------------------------------------------------------------------

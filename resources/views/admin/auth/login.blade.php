@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en"> 
   
 <!-- Mirrored from admin.pixelstrap.com/zeta/theme/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 27 Oct 2022 12:12:34 GMT -->
@@ -70,9 +70,7 @@
                 <!-- Login Form Section -->
                 <div class="col-xl-5 col-12 p-0">
                     <div class="login-card" style="background: #fff !important;">
-                   
-                  
-                        <form class="theme-form login-form"  action="{{ route('login') }}" method="POST"
+                        <form class="theme-form login-form"  action="{{ route('adminloginform') }}" method="POST"
                               style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important; background: #d6e4ff; border-radius: 10px;">
                            @csrf
                               <h4 style="color: #003366;">Login</h4>
@@ -85,7 +83,6 @@
                                     </span>
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                                    <!-- <input class="form-control" type="email" required="" placeholder="Test@gmail.com"> -->
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -105,7 +102,6 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                                    <!-- <input class="form-control" type="password" name="login[password]" required="" placeholder="***"> -->
                                     <div class="show-hide"><span class="show"></span></div>
                                 </div>
                             </div>

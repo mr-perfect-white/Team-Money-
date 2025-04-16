@@ -13,7 +13,7 @@
                 <a href="#" data-menu="menu-share" class="icon icon-xs rounded-sm me-1 shadow-l bg-red-dark"><i class="fa fa-share-alt"></i></a>
                 <a href="#" class="back-to-top icon icon-xs rounded-sm shadow-l bg-highlight color-white"><i class="fa fa-arrow-up"></i></a>
             </div>
-            <p class="footer-copyright pb-3 mb-1">Copyright &copy; Srisadhguru <span id="copyright-year">2025</span>. All Rights Reserved.</p>
+            <p class="footer-copyright pb-3 mb-1">Copyright &copy; TeamMoney <span id="copyright-year">2025</span>. All Rights Reserved.</p>
         </div>
         <div class="footer-card card shape-rounded bg-20" style="height:230px">
             <div class="card-overlay bg-highlight opacity-90"></div>

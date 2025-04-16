@@ -78,7 +78,7 @@
                             @endif
 
 
-                            <form action="{{route('registers.store')}}" method="POST" class="member-register-form" id="memberRegisterForm">
+                            <form action="{{route('register.store')}}" method="POST" class="member-register-form" id="memberRegisterForm" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="input-style no-borders has-icon validate-field">
@@ -154,7 +154,7 @@
                                     <em>(required)</em>
                                     <small class="error-message" id="panError"></small>
                                 </div>
-
+                                 <h5 class="mt-2">Upload PAN Document</h5>
                                 <div class="input-style no-borders has-icon validate-field">
                                     <i class="fa fa-file"></i>
                                     <input type="file" class="form-control validate-file" name="pan_doc" id="panFile">
@@ -175,7 +175,7 @@
                                     <small class="error-message" id="aadhaarError"></small>
                                 </div>
 
-
+                                    <h5 class="mt-2">Upload Aadhaar Document</h5>
                                 <div class="input-style no-borders has-icon validate-field">
                                     <i class="fa fa-file"></i>
                                     <input type="file" class="form-control validate-file" name="adhr_doc" id="aadhaarFile">
@@ -238,14 +238,14 @@
                                     <h5 class="mb-2">Are you a Sadhguru Member?</h5>
                                     <div class="d-flex">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="sadh_mem" id="memberYes" value="yes">
+                                            <input class="form-check-input sadh_mem" type="radio" name="sadh_mem" id="memberYes" value="yes">
                                             <label class="form-check-label" for="memberYes"><i class="fa fa-user-check"></i> Member</label>
                                             <i class="fa fa-times disabled invalid color-red-dark"></i>
                                             <i class="fa fa-check disabled valid color-green-dark"></i>
 
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="sadh_mem" id="memberNo" value="no">
+                                            <input class="form-check-input sadh_mem_no" type="radio" name="sadh_mem" id="memberNo" value="no">
                                             <label class="form-check-label" for="memberNo"><i class="fa fa-user-times"></i> Not a Member</label>
                                             <i class="fa fa-times disabled invalid color-red-dark"></i>
                                             <i class="fa fa-check disabled valid color-green-dark"></i>
@@ -254,20 +254,20 @@
                                     </div>
                                 </div>
 
-                                <div class="input-style no-borders has-icon validate-field" id="memberIdField">
+                                <div class="input-style no-borders has-icon validate-field" id="memberIdField" style="display:none;">
                                     <i class="fa fa-id-badge"></i>
-                                    <input type="text" class="form-control validate-member" name="sadh_mem_id" id="memberid" placeholder="Sadhguru Member ID">
+                                    <input type="text" class="form-control " name="sadh_mem_id" id="memberid" placeholder="Sadhguru Member ID">
                                     <label for="memberid" class="color-blue-dark font-10 mt-1">Sadhguru Membership ID</label>
-                                    <i class="fa fa-times disabled invalid color-red-dark"></i>
-                                    <i class="fa fa-check disabled valid color-green-dark"></i>
-                                    <em id="memberIdRequired">(required)</em>
-                                    <small class="error-message" id="memberidError"></small>
+                                  
                                 </div>
-
+                                
+                                
+                                    <h5 class="mt-2">Upload Photo</h5>
                                 <div class="input-style no-borders has-icon validate-field">
                                     <i class="fa fa-file"></i>
                                     <input type="file" class="form-control validate-file" name="document_one" id="photoFile">
                                     <label for="photo" class="color-blue-dark font-10 mt-1">Upload Photo</label>
+                                     
                                     <i class="fa fa-times disabled invalid color-red-dark"></i>
                                     <i class="fa fa-check disabled valid color-green-dark"></i>
                                     <em id="photoRequired">(required)</em>
@@ -304,9 +304,9 @@
 
 
                             <div class="d-flex">
-                                <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-start"><a href="{{route('member.login')}}" class="color-theme">Already Registered?</a></div>
+                                <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-start"><a href="{{route('memberlogin')}}" class="color-theme">Already Registered?</a></div>
                                 <div class="w-50 font-11 pb-2 color-theme opacity-60 pb-3 text-end">
-                                    <a href="{{route('member.login')}}" class="color-theme">
+                                    <a href="{{route('memberlogin')}}" class="color-theme">
                                         <button class="bg-primary text-white p-2" style="border-radius: 10px;">Go to Login</button>
                                     </a>
                                 </div>
@@ -343,6 +343,28 @@
 
     <script type="text/javascript" src="{{asset('member/scripts/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('member/scripts/custom.js')}}"></script>
+
+    <!-- <script>
+        document.getElementById("memberYes").addEventListener("click", displaymemberfield);
+        document.getElementById("memberNo").addEventListener("click", hidememberfield);
+
+        function displaymemberfield() {
+  document.getElementById("memberIdField").style.display = "block";
+}
+function hidememberfield() {
+  document.getElementById("memberIdField").style.display = "none";
+}
+    </script> -->
+
+
+<script>
+    document.getElementById("memberYes").addEventListener("click", () => toggleVisibility("memberIdField", true));
+document.getElementById("memberNo").addEventListener("click", () => toggleVisibility("memberIdField", false));
+
+function toggleVisibility(elementId, isVisible) {
+  document.getElementById(elementId).style.display = isVisible ? "block" : "none";
+}
+</script>
 
     <script>
     // firstname and last name
@@ -700,7 +722,7 @@ function validatePassword() {
     let invalidIcon = parentDiv.querySelector(".invalid");
 
     // Password format regex: Minimum 8 characters, at least 1 uppercase, 1 lowercase, 1 number, and 1 special character
-    let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    let passwordPattern = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
 
     if (passwordPattern.test(passwordInput.value)) {
         validIcon.classList.remove("disabled");   // ✅ Show green check
@@ -801,116 +823,102 @@ document.getElementById("income").addEventListener("input", validateIncome);
 
 // Sadhguru member id validation
 
-function validateMemberId() {
-    let memberIdInput = document.getElementById("memberid");
-    let memberIdError = document.getElementById("memberidError");
-    let memberIdRequired = document.getElementById("memberIdRequired");
+// function validateMemberId() {
+//     let memberIdInput = document.getElementById("memberid");
+//     let memberIdError = document.getElementById("memberidError");
+//     let memberIdRequired = document.getElementById("memberIdRequired");
 
-    // Get validation icons
-    let parentDiv = memberIdInput.closest(".input-style");
-    let validIcon = parentDiv.querySelector(".valid");
-    let invalidIcon = parentDiv.querySelector(".invalid");
+//     // Get validation icons
+//     let parentDiv = memberIdInput.closest(".input-style");
+//     let validIcon = parentDiv.querySelector(".valid");
+//     let invalidIcon = parentDiv.querySelector(".invalid");
 
-    // Remove non-alphanumeric characters
-    memberIdInput.value = memberIdInput.value.replace(/[^A-Za-z0-9]/g, '');
+//     // Remove non-alphanumeric characters
+//     memberIdInput.value = memberIdInput.value.replace(/[^A-Za-z0-9]/g, '');
 
-    // Member ID pattern: Alphanumeric, exactly 10 characters
-    let memberIdPattern = /^[A-Za-z0-9]{10}$/;
+//     // Member ID pattern: Alphanumeric, exactly 10 characters
+//     let memberIdPattern = /^[A-Za-z0-9]{10}$/;
 
-    if (memberIdPattern.test(memberIdInput.value)) {
-        validIcon.classList.remove("disabled");   // ✅ Show green check
-        invalidIcon.classList.add("disabled");    // ❌ Hide red cross
-        memberIdError.textContent = "";
-        memberIdRequired.style.display = "none";  // Hide required text
-    } else if (memberIdInput.value.length === 0) {
-        validIcon.classList.add("disabled");      // Hide both icons
-        invalidIcon.classList.add("disabled");
-        memberIdError.textContent = "";
-        memberIdRequired.style.display = "inline"; // Show required text
-    } else {
-        validIcon.classList.add("disabled");      // ❌ Hide green check
-        invalidIcon.classList.remove("disabled"); // ❌ Show red cross
-        memberIdError.textContent = "Member ID must be alphanumeric and exactly 10 characters.";
-        memberIdError.style.color = "red";
-        memberIdRequired.style.display = "inline"; // Show required text
-    }
-}
+//     if (memberIdPattern.test(memberIdInput.value)) {
+//         validIcon.classList.remove("disabled");   // ✅ Show green check
+//         invalidIcon.classList.add("disabled");    // ❌ Hide red cross
+//         memberIdError.textContent = "";
+//         memberIdRequired.style.display = "none";  // Hide required text
+//     } else if (memberIdInput.value.length === 0) {
+//         validIcon.classList.add("disabled");      // Hide both icons
+//         invalidIcon.classList.add("disabled");
+//         memberIdError.textContent = "";
+//         memberIdRequired.style.display = "inline"; // Show required text
+//     } else {
+//         validIcon.classList.add("disabled");      // ❌ Hide green check
+//         invalidIcon.classList.remove("disabled"); // ❌ Show red cross
+//         memberIdError.textContent = "Member ID must be alphanumeric and exactly 10 characters.";
+//         memberIdError.style.color = "red";
+//         memberIdRequired.style.display = "inline"; // Show required text
+//     }
+// }
 
-// Attach event listener for real-time validation
-document.getElementById("memberid").addEventListener("input", validateMemberId);
+//document.getElementById("memberid").addEventListener("input", validateMemberId);
 
 
 // Register Validation
 
-document.querySelector('.btn').addEventListener('click', function(event) {
-    event.preventDefault();  // Prevent form submission
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("memberRegisterForm"); // Get the form
+    const preloader = document.getElementById("preloader"); // Get the existing loader
 
-    let isValid = true; // Flag to track form validity
-    let fields = document.querySelectorAll('.validate-field'); // Get all input fields
-    let firstInvalidField = null; // To track the first invalid field
+    if (form && preloader) {
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Stop form submission initially
 
-    fields.forEach(field => {
-        let input = field.querySelector('input');
-        let errorMessage = field.querySelector('.error-message');
-        let validIcon = field.querySelector('.valid');
-        let invalidIcon = field.querySelector('.invalid');
-        let requiredText = field.querySelector('em');
+            let isValid = true; 
+            let firstInvalidField = null; 
+            let fields = document.querySelectorAll('.validate-field');
 
-        // Reset the error message and validation icons
-        errorMessage.textContent = '';
-        validIcon.classList.add('disabled');
-        invalidIcon.classList.add('disabled');
+            // Reset previous validation messages
+            fields.forEach(field => {
+                let input = field.querySelector('input');
+                let errorMessage = field.querySelector('.error-message');
+                let invalidIcon = field.querySelector('.invalid');
+                let requiredText = field.querySelector('em');
 
-        if (input && input.value.trim() === '') {
-            isValid = false;
-            errorMessage.textContent = 'This field is required.';
-            invalidIcon.classList.remove('disabled');
-            requiredText.style.display = 'inline';
-            
-            if (!firstInvalidField) {
-                firstInvalidField = input;
-            }
-        } else if (input && input.value.trim() !== '') {
-            if (input.id === 'memberid' && !/^[A-Za-z0-9]{10}$/.test(input.value)) {
-                isValid = false;
-                errorMessage.textContent = 'Member ID must be alphanumeric and exactly 10 characters.';
-                invalidIcon.classList.remove('disabled');
-                requiredText.style.display = 'inline';
-                
-                if (!firstInvalidField) {
-                    firstInvalidField = input;
+                if (errorMessage) errorMessage.textContent = '';
+                if (invalidIcon) invalidIcon.classList.add('disabled');
+
+                if (input && input.value.trim() === '') {
+                    isValid = false;
+                    if (errorMessage) errorMessage.textContent = 'This field is required.';
+                    if (invalidIcon) invalidIcon.classList.remove('disabled');
+                    if (requiredText) requiredText.style.display = 'inline';
+
+                    if (!firstInvalidField) {
+                        firstInvalidField = input;
+                    }
                 }
-            }
-            // Add similar validation for other fields like password, income, etc.
-            // Example for monthly income:
-            if (input.id === 'income' && (parseInt(input.value) < 1000 || parseInt(input.value) > 1000000000)) {
-                isValid = false;
-                errorMessage.textContent = 'Monthly income must be between ₹1,000 and ₹10,00,00,000.';
-                invalidIcon.classList.remove('disabled');
-                requiredText.style.display = 'inline';
-                
-                if (!firstInvalidField) {
-                    firstInvalidField = input;
-                }
-            }
-            // Add more conditions based on your field validations
-        }
-    });
+            });
 
-    // Scroll to the first invalid field
-    if (firstInvalidField) {
-        firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        firstInvalidField.focus();
-    }
+            // If validation fails, scroll to the first invalid field and stop submission
+            if (firstInvalidField) {
+                firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstInvalidField.focus();
+                return;
+            }
 
-    // If all fields are valid, you can submit the form
-    if (isValid) {
-        alert('Form submitted successfully!');
-        document.getElementById('memberRegisterForm').submit();
+            // ✅ Show the confirmation alert before proceeding
+            if (!confirm("No changes will be done once the form is submitted. Do you want to proceed?")) {
+                return; // If user cancels, stop submission
+            }
+
+            // ✅ Show the loader
+            preloader.style.display = "flex";
+            preloader.style.visibility = "visible";
+            preloader.style.opacity = "1";
+
+            // ✅ Submit the form immediately (no delay)
+            form.submit();
+        });
     }
 });
-
-
 
 </script>
     

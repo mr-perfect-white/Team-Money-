@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\MemberRegister;
-use App\Models\TeamMeeting;
-
-use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -20,16 +17,11 @@ class MemberRegistersController extends Controller
      */
     public function dashboard()
     {
-        $totalmember = MemberRegister::count(); // Get total number of members
-        $group= Group::count();
-        $totalmeeting = TeamMeeting::count(); // Get total number of meetings
-        return view('admin.dashboard', compact('totalmember','group','totalmeeting'));
+        return view('admin.dashboard');
     }
-   
-
     public function index()
     {
-        $data= MemberRegister::all();
+        $data= MemberRegister::orderby('id','Desc')->get();
         return view('admin.registers.index',compact('data'));
     }
 
@@ -46,7 +38,7 @@ class MemberRegistersController extends Controller
      */
     public function store(Request $request)
 {
-    // dd($request);
+  //  dd($request);
   
    
 
@@ -75,25 +67,16 @@ class MemberRegistersController extends Controller
         'sadh_mem.unique' => 'This Sadhguru Membership  number is already registered.',
     ]);
     
-    if ($request->hasFile('document_one')) {
-        $file = $request->file('document_one');
-        $filename = date('YmdHis') . $file->getClientOriginalName();
-        $file->move(public_path('uploads/member-documents'), $filename);
-    }
+    
 
-    if ($request->hasFile('pan_doc')) {
-        $file = $request->file('pan_doc');
-        $filename = date('YmdHis') . $file->getClientOriginalName();
-        $file->move(public_path('uploads/member/pan_doc'), $filename);
-    }
+    $documentOneFilename = date('YmdHis') . '_' . $request->file('document_one')->getClientOriginalName();
+    $request->file('document_one')->move(public_path('uploads/member-documents'), $documentOneFilename);
 
-    if ($request->hasFile('adhr_doc')) {
-        $file = $request->file('adhr_doc');
-        $filename = date('YmdHis') . $file->getClientOriginalName();
-        $file->move(public_path('uploads/member/adhr_doc'), $filename);
-    }
+    $panDocFilename = date('YmdHis') . '_' . $request->file('pan_doc')->getClientOriginalName();
+    $request->file('pan_doc')->move(public_path('uploads/member/pan_doc'), $panDocFilename);
 
-   
+    $adhrDocFilename = date('YmdHis') . '_' . $request->file('adhr_doc')->getClientOriginalName();
+    $request->file('adhr_doc')->move(public_path('uploads/member/adhr_doc'), $adhrDocFilename);
     $data = MemberRegister::create([
         'firstname' => $request->input('firstname'),
         'lastname' => $request->input('lastname'),
@@ -101,11 +84,11 @@ class MemberRegistersController extends Controller
         'email' => $request->input('email'),
         'permanent_addr' => $request->input('permanent_addr'),
         'temporary_addr' => $request->input('temporary_addr'),
-        'document_one' => $request->input('document_one'),
+        'document_one' => $documentOneFilename,
         'pan_num' => $request->input('pan_num'),
-        'pan_doc' => $request->input('pan_doc'),
+        'pan_doc' => $panDocFilename,
         'adhr_num' => $request->input('adhr_num'),
-        'adhr_doc' => $request->input('adhr_doc'),
+       'adhr_doc' => $adhrDocFilename,
         'accnt_num' => $request->input('accnt_num'),
         'accnt_ifsc_num' => $request->input('accnt_ifsc_num'),
         'accnt_brnch_dtl' => $request->input('accnt_brnch_dtl'),
@@ -116,15 +99,15 @@ class MemberRegistersController extends Controller
         'uuid' => (string) Str::uuid(),
     ]);
 
-    if (auth()->guard('user')->check()){
-
+    
+    if (auth()->guard('admin')->check()) {
+      
         return redirect()->route('registers.index')->with('success', 'Member registered successfully!');
-    }
-    else{
+    } else {
+      
         return redirect()->route('members.login')->with('success', 'Member registered successfully!');
     }
-    // Redirect or return a response
-   
+ //   return redirect()->route('registers.index')->with('success', 'Member registered successfully!');
 }
 
    
@@ -140,24 +123,79 @@ class MemberRegistersController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+  public function edit(string $id)
     {
-        //
+       // dd($id);
+       $data = MemberRegister::where('id',$id)->first();
+
+        return view ('admin.registers.edit',compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        //
+{
+    $member = MemberRegister::findOrFail($id); // You missed this line
+
+
+    if ($request->hasFile('document_one')) {
+        $documentOne = $request->file('document_one');
+        $documentOneFilename = time() . '_doc_' . $documentOne->getClientOriginalName();
+        $documentOne->move(public_path('uploads/member-documents'), $documentOneFilename);
+    } else {
+        $documentOneFilename = $member->document_one; // keep existing
     }
+
+ 
+    if ($request->hasFile('pan_doc')) {
+        $panDoc = $request->file('pan_doc');
+        $panDocFilename = time() . '_pan_' . $panDoc->getClientOriginalName();
+        $panDoc->move(public_path('uploads/member/pan_doc'), $panDocFilename);
+    } else {
+        $panDocFilename = $member->pan_doc;
+    }
+
+  
+    if ($request->hasFile('adhr_doc')) {
+        $adhrDoc = $request->file('adhr_doc');
+        $adhrDocFilename = time() . '_aadhaar_' . $adhrDoc->getClientOriginalName();
+        $adhrDoc->move(public_path('uploads/member/adhr_doc'), $adhrDocFilename);
+    } else {
+        $adhrDocFilename = $member->adhr_doc;
+    }
+
+    // Update the record
+    $member->update([
+        'firstname' => $request->input('firstname'),
+        'lastname' => $request->input('lastname'),
+        'phone' => $request->input('phone'),
+        'email' => $request->input('email'),
+        'permanent_addr' => $request->input('permanent_addr'),
+        'temporary_addr' => $request->input('temporary_addr'),
+        'document_one' => $documentOneFilename,
+        'pan_num' => $request->input('pan_num'),
+        'pan_doc' => $panDocFilename,
+        'adhr_num' => $request->input('adhr_num'),
+        'adhr_doc' => $adhrDocFilename,
+        'accnt_num' => $request->input('accnt_num'),
+        'accnt_ifsc_num' => $request->input('accnt_ifsc_num'),
+        'accnt_brnch_dtl' => $request->input('accnt_brnch_dtl'),
+        'monthly_inc' => $request->input('monthly_inc'),
+        'sadh_mem' => $request->input('sadh_mem'),
+        'sadh_mem_id' => $request->input('sadh_mem_id'),
+    ]);
+
+    return redirect()->route('registers.index')->with('success', 'Member updated successfully!');
+}
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        dd($id);
+        $data = MemberRegister::where('id',$id)->delete();
+        return redirect()->back()->with('Member deleted successfully!');
     }
 }

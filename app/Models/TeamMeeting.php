@@ -9,5 +9,10 @@ class TeamMeeting extends Model
 {
     use HasFactory;
 
-    protected $fillable  = ['tm_mtng_nm','tm_mtng_purpose','tm_mtng_details','tm_mtng_date','tm_mtng_time','tm_mtng_mode'];
+    protected $fillable  = ['tm_mtng_nm','tm_mtng_purpose','tm_mtng_details','tm_mtng_date','tm_mtng_time','tm_mtng_mode','mtng_url','mtng_aadr'];
+    
+      public function attendance(){
+        return $this->hasMany(Teamattendance::class);
+    }
+
 }

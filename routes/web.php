@@ -1,65 +1,79 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\Auth\AdminLoginController;
+use App\Http\Controllers\Member\Auth\MemberLoginController;
+
 use App\Http\Controllers\Admin\MemberRegistersController;
-use App\Http\Controllers\Admin\GroupMeetingController;
 use App\Http\Controllers\Admin\TeamMeetingController;
 use App\Http\Controllers\Admin\GroupmemberController;
 use App\Http\Controllers\Admin\GroupController;
-use App\Http\Controllers\Admin\RoleManagementController;
-use App\Http\Controllers\Admin\TeamAddendanceController;
-use App\Http\Controllers\Member\Auth\MemberLoginController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\MemberRoleController;
+use App\Http\Controllers\Admin\TeamattendanceController;
+
+use App\Http\Controllers\Member\DashboardController;
+use App\Http\Controllers\Member\GroupController as Membergroupcontroller;
+use App\Http\Controllers\Member\GroupMeetingController;
+use App\Http\Controllers\Member\Auth\RegisterController;
 
 // Route::get('/', function () {
-//     return view('member.auth.login');
+//     return view('welcome');
 // });
 
-//Auth::routes();
 
-// Route::get('admin/login', function()
-// {
-// return view('admin.auth.login');
-// });
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-Route::resource('/registers', MemberRegistersController::class);
-Route::middleware('auth:user')->group(function () {
-  
-    Route::get('/dashboard', [MemberRegistersController::class,'dashboard'])->name('dashboard');
-    Route::resource('/groupmembers', GroupmemberController::class);
-    Route::resource('/groups', GroupController::class);
-    Route::resource('/teammeeting', TeamMeetingController::class);
-    Route::get('/attendance/{meeting_id}', [TeamAddendanceController::class,'index'])->name('admin.meetings.attendance');
-    Route::get('/rolemanagement', [RoleManagementController::class, 'index'])->name('rolemanagement');
-
-    //Route::resource('/memberrole', MemberRoleController::class);
-    Route::get('/memberrole', [MemberRoleController::class, 'index'])->name('memberrole');
-    Route::get('/memberrole/create', [MemberRoleController::class, 'create'])->name('role-create');
-    Route::get('memberrole/{id}/role-edit', [MemberRoleController::class, 'edit'])
-    ->name('memberrole.role-edit');
-    Route::put('memberrole/{id}/update', [MemberRoleController::class, 'update'])
-    ->name('memberrole.update');
-     Route::delete('/memberrole/delete/{$id}', [MemberRoleController::class, 'delete'])->name('memberrole.delete');
+// Route::get('/login', function () {
+//     if (Auth::guard('member')->check()) {
+//         return redirect()->route('memberdashboard'); 
+//     } elseif (Auth::guard('admin')->check()) {
+//         return redirect()->route('memberlogin'); 
+//     }
     
+//     return redirect()->route('memberlogin'); 
+// })->name('login');
 
 
 
-    Route::post('memberrole/store', [MemberRoleController::class, 'store'])->name('memberrole.store');
 
-    Route::post('/attendance/store', [TeamAddendanceController::class,'store'])->name('attendance.store');
-  
+
+
+Route::get('/login', function () {
+    if (Auth::guard('member')->check()) {
+        return redirect()->route('adminlogin'); 
+    }
+    return redirect()->route('memberlogin'); 
+})->name('login');
+
+// Admin routes
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('adminlogin');
+    Route::post('/login', [AdminLoginController::class, 'adminloginform'])->name('adminloginform');
+    Route::post('/logout', [AdminLoginController::class, 'logout'])->name('adminlogout');
+
+    Route::middleware('auth:admin')->group(function () {
+        Route::resource('/registers', MemberRegistersController::class);
+        Route::get('/dashboard', [MemberRegistersController::class,'dashboard'])->name('dashboard');
+        Route::resource('/groupmember', GroupmemberController::class);
+        Route::resource('/group', GroupController::class);
+        Route::resource('/teamMeeting', TeamMeetingController::class);
+          Route::resource('/teamattendance', TeamattendanceController::class);
+        Route::get('memberrole', [TeamattendanceController::class, 'member'])->name('memberlist');
+
+    });
 });
 
-Route::get('/', [MemberLoginController::class, 'showLoginForm'])->name('members.login');
-Route::get('/register', [MemberLoginController::class, 'showRegisterForm'])->name('register');
-Route::post('/', [MemberLoginController::class, 'login'])->name('member.login');
-Route::post('member-logout', [MemberLoginController::class, 'logout'])->name('member.logout');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Member routes
+Route::resource('/register', RegisterController::class);
+Route::prefix('member')->group(function () {
+    Route::get('/login', [MemberLoginController::class, 'showLoginForm'])->name('memberlogin');
+    Route::post('/login', [MemberLoginController::class, 'memberloginform'])->name('memberloginform');
+    Route::post('/logout', [MemberLoginController::class, 'logout'])->name('memberlogout');
+    Route::get('/forgotpassword',[MemberLoginController::class, 'forgotpassword'])->name('forgotpassword');
+    Route::post('/forgotpassword',[MemberLoginController::class, 'forgotform'])->name('forgotpasswordform');
+    
 
-Route::middleware('auth:member')->group(function () {
-    Route::resource('/groupmeeting', GroupMeetingController::class);
-    Route::get('/member-dashboard',[GroupMeetingController::class, 'dashboard'])->name('memberdashboard');
+    Route::middleware('auth:member')->group(function () {
+        Route::resource('/groupmeeting', GroupMeetingController::class);
+        Route::resource('/membergroup', Membergroupcontroller::class);
+        Route::get('/group-dashboard',[Membergroupcontroller::class, 'dashboard'])->name('groupdashboard');
+        Route::get('/member-dashboard',[DashboardController::class, 'dashboard'])->name('memberdashboard');
+    });
 });

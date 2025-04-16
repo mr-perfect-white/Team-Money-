@@ -18,12 +18,6 @@ class Group extends Model
         return $this->hasMany(Groupmember::class);
     }
 
-    protected $table = 'groups';
-
-    
-    public function group()
-{
-    return $this->belongsTo(Group::class, 'group_id');
-}
    
+
 }

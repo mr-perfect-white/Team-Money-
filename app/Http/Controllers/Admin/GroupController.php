@@ -7,6 +7,10 @@ use App\Models\Groupmember;
 use App\Models\MemberRole;
 use App\Models\MemberRegister;
 use Illuminate\Http\Request;
+use App\Models\GroupMeeting;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\exist;
+
 
 class GroupController extends Controller
 {
@@ -16,7 +20,7 @@ class GroupController extends Controller
     public function index()
     {
         $data=Group::withCount('groupmembers')->get();
-      //  dd($data);
+     
         return view('admin.group-management.index',compact('data'));
     }
 
@@ -35,13 +39,25 @@ class GroupController extends Controller
      */
     public function store(Request $request)
 {
-    $groupData = [
-        'name' => $request->input('name'),
-        'logo' => $request->file('logo')->store('logos'), 
-    ];
 
-  
-    $group = Group::create($groupData);
+    // $groupData = [
+    //     'name' => $request->input('name'),
+    //     'logo' => $request->file('logo')->store('logos'), 
+    // ];
+    $logoFilename = null; 
+if ($request->hasFile('logo')) {
+    $logoFilename = date('YmdHis') . '_' . $request->file('logo')->getClientOriginalName();
+    $request->file('logo')->move(public_path('uploads/group-logos'), $logoFilename);
+}
+   
+    
+   
+    $group = Group::create([
+                'name' => $request->input('name'),
+                'logo' => $logoFilename,
+            ]);
+
+    
    
     $memberIds = $request->input('members');
     $roleIds = $request->input('roles');
@@ -70,45 +86,10 @@ class GroupController extends Controller
     }
 
   
-    return redirect()->route('groups.index')->with('success', 'Group created successfully.');
+    return redirect()->route('group.index')->with('success', 'Group created successfully.');
 }
 
-    public function storeold(Request $request)
-    {
-      // dd($request);
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'logo' => 'required|file|max:3000',
-            'member_id' => 'required|array',  
-            'role' => 'required|array',       
-        ]);
-    
-       
-        $groupData = [
-            'name' => $request->input('name'),
-            'logo' => $request->file('logo')->store('logos'), 
-        ];
-    
-        // Create the group
-        $group = Group::create($groupData);
-    
-       
-        $members = $request->input('member_id'); 
-        $roles = $request->input('role'); 
-    
-        foreach ($members as $key => $member_id) {
-            $memdata = [
-                'group_id' => $group->id,    
-                'member_id' => $member_id,    
-                'role' => $roles[$key],       
-            ];
-    
-            Groupmember::create($memdata); 
-        }
-    
-     
-        return redirect()->route('admin.group-management.index')->with('success', 'Group created successfully');
-    }
+   
     
 
     /**
@@ -123,16 +104,17 @@ class GroupController extends Controller
         //     return $groupmember->member;  
         // });  
 
+      
 
-        // Fetch the group with all its related Groupmembers and eager load the MemberRegister
+        $newmembers = MemberRegister::where('status',1)->get();
         $group = Group::with('groupmembers.member')->find($group->id);
-
-       //Access the member data directly
         $members = $group->groupmembers->pluck('member');  
+    
+        $gpmeeting = GroupMeeting::where('group_id',$group->id)->get();
+        $roles = MemberRole::all();
 
-
-       // dd($members);
-        return view('admin.group-management.view',compact('group','members'));
+      
+        return view('admin.group-management.view',compact('group','members','newmembers','gpmeeting','roles'));
     }
 
     /**
@@ -140,7 +122,16 @@ class GroupController extends Controller
      */
     public function edit(Group $group)
     {
-        //
+        $newmembers = MemberRegister::where('status',1)->get();
+        $group = Group::with('groupmembers.member')->find($group->id);
+        $members = $group->groupmembers->pluck('member');  
+    
+        $gpmeeting = GroupMeeting::where('group_id',$group->id)->get();
+        $roles = MemberRole::all();
+
+     
+        return view('admin.group-management.edit',compact('group','members','newmembers','gpmeeting','roles'));
+     
     }
 
     /**
@@ -148,7 +139,36 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        //
+   
+
+       $request->validate([
+        'name' => 'required|string|max:255',
+      //  'logo' => 'nullable|string|max:255',
+    ]);
+
+    if ($request->hasFile('logo')) {
+        $documentOne = $request->file('logo');
+        $documentOneFilename = time() . '_doc_' . $documentOne->getClientOriginalName();
+        $documentOne->move(public_path('uploads/group-logos'), $documentOneFilename);
+      //  dd('File uploaded as: ' . $documentOneFilename);
+
+    } else {
+        $documentOneFilename = $group->logo; 
+       
+    }
+
+    $updated = $group->update([
+        'name' => $request->input('name'),  
+        'logo' => $documentOneFilename,
+    ]);
+      
+       if($updated){
+        return redirect()->back()->with('success','group details updated successfully!');
+       }
+       else{
+        return redirect()->back()->with('error','something went wrong!');
+
+       }
     }
 
     /**
@@ -156,6 +176,17 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        //
+     
+      
+        $groupmember =    Groupmember::where('group_id',$group->id)->get();
+    
+        foreach($groupmember as $groupmem => $upgroupmember){
+            $data = MemberRegister::where('id',$upgroupmember->member_id)->update(['status'=>'1']);
+            $upgroupmember->delete();
+        }
+       
+        $group->delete();
+
+        return redirect()->back()->with('success','group deleted');
     }
 }
