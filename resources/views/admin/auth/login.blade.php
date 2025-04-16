@@ -74,7 +74,7 @@
                               style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important; background: #d6e4ff; border-radius: 10px;">
                            @csrf
                               <h4 style="color: #003366;">Login</h4>
-                            <h6>Welcome back! Log in to your account.</h6>
+                            <h6></h6>
                             <div class="form-group">
                                 <label>Email Address</label>
                                 <div class="input-group">
